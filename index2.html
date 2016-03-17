@@ -1,0 +1,116 @@
+<html>
+
+<body>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+    <div class="container-fluid" style="width:50%; margin-left:15%; margin-right:15%;">
+    <form name="myForm" onsubmit="encrypt(); return false" method="POST">
+        <h2>Vigenere Cipher Encryptor</h2>
+        <div class="form-group form-group-lg">
+                <label for="key">Text:</label>
+                <input type="text" class="form-control" id="id">
+            </div>
+        <div class="form-group form-group-lg">
+                <label for="key">Key*(Use letters)</label>
+                <input type="text" class="form-control" id="key">
+            </div>
+
+        <button class="btn btn-primary" onclick="(encrypt())">Encrypt</button>
+        <br>
+        <div id="result"></div>
+
+    </form>
+    
+    <form name="myForm" onsubmit="decrypt(); return false" method="POST">
+        <h2>Vigniere Cipher Decryptor</h2>
+        <div class="form-group form-group-lg">
+                <label for="key">Text:</label>
+                <input type="text" class="form-control" id="id2">
+            </div>
+        <div class="form-group form-group-lg">
+                <label for="key">Key*(Use letters)</label>
+                <input type="text" class="form-control" id="key2">
+            </div>
+        <button class="btn btn-primary" onclick="(decrypt())">Decrypt</button>
+        <div id="result2"></div>
+
+    </form>
+    </div>
+    <script>
+        function encrypt() {
+            var n = document.getElementById("id").value;
+            var k = document.getElementById("key").value;
+            return encryptVigenere(n, k);
+        }
+        function decrypt() {
+            var n = document.getElementById("id2").value;
+            var k = document.getElementById("key2").value;
+            return decryptVigenere(n, k);
+        }
+        
+function getKey(key) {
+    k = []
+    for (var i = 0; i < key.length; i++) {
+        var c = key[i].charCodeAt(key[i]);
+        k.push((c - 65) % 26);
+    }
+    console.log(k);
+    return k;
+}
+
+function encryptVigenere(n, key) {
+    var k = getKey(key.toUpperCase());
+    var result = "";
+    var length = k.length;
+    console.log(length);
+            
+    for (var i = 0; i < n.length; i++) {
+        var code = n[i].charCodeAt(n[i]);
+        console.log(code);
+        if ((code >= 65 && code <= 90 - k[i%length]) || (code >= 97 && code < 123 - k[i%length])) {
+            code += k[i%length] % 26;
+            //console.log("first case");
+            //console.log(String.fromCharCode(code));
+    } else if ((code >= 91 - k[i%length] && code <= 90) || (code >= 123 - k[i%length] && code <= 122)) {
+        code -= (26 - k[i%length]);
+        //console.log("second case");
+        //console.log(String.fromCharCode(code));
+    }
+    //console.log(code);
+    result += String.fromCharCode(code);
+    //console.log(String.fromCharCode(code));
+    }
+    document.getElementById("result").innerHTML = "your answer is :" + result
+            return result;
+        }
+        
+function decryptVigenere(n, key) {
+    var k = getKey(key.toUpperCase());
+    var result = "";
+    var length = k.length;
+    
+    for (var i = 0; i < n.length; i++) {
+        var code = n[i].charCodeAt(n[i]);
+        console.log(code);
+        if ((code >= 65 + k[i%length] && code <= 90) || (code >= 97 + k[i%length] && code < 122)) {
+            code -= k[i%length];
+            //console.log("first case");
+            //console.log(String.fromCharCode(code));
+    } else if ((code >= 65 && code < 65 + k[i%length]) || (code >= 97 && code < 97 + k[i%length])) {
+        code += (26 - k[i%length]);
+        //console.log("second case");
+        //console.log(String.fromCharCode(code));
+    }
+    //console.log(code);
+    result += String.fromCharCode(code);
+    //console.log(String.fromCharCode(code));
+    }
+    document.getElementById("result2").innerHTML = "Your answer is : " + result
+            return result;
+    
+}
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,50 @@
+<html>
+
+<body>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+    <div class="container-fluid" style="width:50%; margin-left:15%; margin-right:15%;">
+        <form name="myForm" onsubmit="onClick(); return false" method="POST">
+            <h2>Add the 2 numbers needed for GDC</h2>
+            
+             <div class="form-group form-group-lg">
+                <label for="nbr">Number</label>
+                <input type="number" class="form-control" id="id1">
+            </div>
+            <div class="form-group form-group-lg">
+                <label for="nbr">Number</label>
+                <input type="number" class="form-control" id="id2">
+            </div>
+            
+
+            <button class="btn btn-primary" onclick="(onClick())">Try it</button>
+            <br>
+            <div id="result"></div>
+
+        </form>
+    </div>
+
+    <script>
+        function onClick() {
+            var a = document.getElementById("id1").value;
+            var b = document.getElementById("id2").value;
+            return gcd(a, b);
+        }
+
+        function gcd(a, b) {
+            var r;
+            while (b > 0) {
+                r = a % b;
+                a = b;
+                b = r;
+                console.log("a = " +a);
+                console.log("b = " +b);
+                console.log("r = " +r);
+            }
+            document.getElementById("result").innerHTML = "The answer is :" + a
+            return a;
+        }
+    </script>
+</body>
+
+</html>
